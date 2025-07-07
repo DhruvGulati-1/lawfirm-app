@@ -1,12 +1,11 @@
-// frontend/src/App.jsx
-
-import React from 'react';
+// App.jsx
+import React from "react";
 
 function App() {
   return (
-    <div>
-      <h1>Law Firm App</h1>
-      <p>Welcome to the platform for lawyers and PAs.</p>
+    <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+      <h1>Welcome to the Law Firm App</h1>
+      <p>The frontend is connected to the backend ✅</p>
     </div>
   );
 }
