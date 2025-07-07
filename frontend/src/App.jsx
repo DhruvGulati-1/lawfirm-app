@@ -9,11 +9,20 @@ const App = () => {
   const fetchCases = async () => {
     try {
       const res = await axios.get('https://lawfirm-backend-zxys.onrender.com/api/cases');
-      console.log('Fetched response:', res.data); // Debug log
-      setCases(res.data.data || []);              // Safely handle response
+      console.log('API response:', res.data); // 🐞 Debug here
+
+      const incoming = res.data?.data;
+
+      // If incoming is NOT an array, force fallback
+      if (Array.isArray(incoming)) {
+        setCases(incoming);
+      } else {
+        console.warn('Unexpected response format:', incoming);
+        setCases([]); // fallback
+      }
     } catch (error) {
       console.error('Error fetching cases:', error);
-      setCases([]); // Fallback to empty array on error
+      setCases([]); // fallback to prevent crash
     }
   };
 
@@ -30,7 +39,7 @@ const App = () => {
     try {
       await axios.post('https://lawfirm-backend-zxys.onrender.com/api/cases', formData);
       setFormData({ clientName: '', caseType: '', description: '' });
-      fetchCases(); // Refresh list
+      fetchCases(); // refresh
     } catch (err) {
       console.error('Error submitting case:', err);
     }
@@ -67,6 +76,7 @@ const App = () => {
       </form>
 
       <h2>Submitted Cases</h2>
+
       {Array.isArray(cases) && cases.length > 0 ? (
         cases.map((c, i) => (
           <div key={i} style={{ marginBottom: '1rem' }}>
@@ -75,7 +85,7 @@ const App = () => {
           </div>
         ))
       ) : (
-        <p>No cases found.</p>
+        <p>No cases found or failed to load.</p>
       )}
     </div>
   );
