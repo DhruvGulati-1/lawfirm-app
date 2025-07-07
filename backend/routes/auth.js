@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
 
-// Sample auth route
+// Sample GET route
 router.get("/", (req, res) => {
-  res.send("Auth route is live ✅");
+  res.send("Auth route working ✅");
 });
 
 export default router;
