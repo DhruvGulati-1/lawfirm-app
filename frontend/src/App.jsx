@@ -7,15 +7,14 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   const fetchCases = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get('https://lawfirm-backend-zxys.onrender.com/api/cases');
-      setCases(res.data);
-    } catch (err) {
-      console.error('Error fetching cases:', err);
-    } finally {
-      setLoading(false);
-    }
+  try {
+    const res = await axios.get('https://lawfirm-backend-zxys.onrender.com/api/cases');
+    setCases(res.data.data); // <- FIXED LINE
+  } catch (error) {
+    console.error('Error fetching cases:', error);
+  }
+};
+
   };
 
   useEffect(() => {
